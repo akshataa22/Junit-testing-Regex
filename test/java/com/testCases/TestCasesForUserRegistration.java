@@ -24,4 +24,11 @@ public class TestCasesForUserRegistration {
         boolean result = user.emailID("dhanawadeakshata53@gmail.com");
         Assert.assertEquals(true,result);
     }
+
+    @Test
+    public void MobileNoCheck()
+    {
+        boolean result = user.mobileNumber("91 1234567890");
+        Assert.assertEquals(true,result);
+    }
 }

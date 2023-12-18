@@ -27,4 +27,11 @@ public class UserRegistration {
         return true;
     }
 
+    public boolean mobileNumber(String number) {
+        boolean isValidMobileNumber = Pattern.matches("^[0-9]{2}\s[0-9]{10}", number);
+        if (isValidMobileNumber == false) {
+            System.out.println("Please enter valid mobile number.");
+        }
+        return true;
+    }
 }
