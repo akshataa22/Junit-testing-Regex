@@ -31,4 +31,11 @@ public class TestCasesForUserRegistration {
         boolean result = user.mobileNumber("91 1234567890");
         Assert.assertEquals(true,result);
     }
+
+    @Test
+    public void password()
+    {
+        boolean result = user.password("Admin@123");
+        Assert.assertEquals(true,result);
+    }
 }

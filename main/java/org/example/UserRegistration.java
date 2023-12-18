@@ -34,4 +34,12 @@ public class UserRegistration {
         }
         return true;
     }
+
+    public boolean password(String password) {
+        boolean isValidPassword = Pattern.matches("^(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!])(?!.*\\s).{8,}$", password);
+        if (isValidPassword == false) {
+            System.out.println("Please enter valid password.");
+        }
+        return true;
+    }
 }
