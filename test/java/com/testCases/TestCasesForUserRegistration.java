@@ -1,97 +1,77 @@
 package com.testCases;
 
-import org.example.UserRegistration;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.function.Predicate;
+import java.util.regex.Pattern;
+
 public class TestCasesForUserRegistration {
-    UserRegistration user = new UserRegistration();
 
-    // Happy Test Cases
+    private static final Predicate<String> isValidFirstName = firstName ->
+            Pattern.matches("^[A-Z]{1}[a-z]{0,20}", firstName);
+
+    private static final Predicate<String> isValidLastName = lastName ->
+            Pattern.matches("^[A-Z]{1}[a-z]{0,20}", lastName);
+
+    private static final Predicate<String> isValidEmail = email ->
+            Pattern.matches("^[a-z]{0,40}[0-9]{2}[@]{1}[a-z]{0,15}[.]{1}[a-z]{3}", email);
+
+    private static final Predicate<String> isValidMobileNumber = mobileNumber ->
+            Pattern.matches("^[0-9]{2}\\s[0-9]{10}", mobileNumber);
+
+    private static final Predicate<String> isValidPassword = password ->
+            Pattern.matches("^(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!])(?!.*\\s).{8,}$", password);
+
+    // Happy test cases
     @Test
-    public void firstNameCheck() {
-        boolean result = user.firstName("Akshata");
-        Assert.assertEquals(true, result);
+    public void testValidFirstName() {
+        Assert.assertTrue(isValidFirstName.test("Akshata"));
     }
 
     @Test
-    public void lastNameCheck() {
-        boolean result = user.lastName("Dhanawade");
-        Assert.assertEquals(true, result);
+    public void testValidLastName() {
+        Assert.assertTrue(isValidLastName.test("Dhanawade"));
     }
 
     @Test
-    public void emailIdCheck() {
-        boolean result = user.emailID("dhanawadeakshata53@gmail.com");
-        Assert.assertEquals(true, result);
+    public void testValidEmailId() {
+        Assert.assertTrue(isValidEmail.test("dhanawadeakshata53@gmail.com"));
     }
 
     @Test
-    public void mobileNoCheck() {
-        boolean result = user.mobileNumber("91 1234567890");
-        Assert.assertEquals(true, result);
+    public void testValidMobileNumber() {
+        Assert.assertTrue(isValidMobileNumber.test("91 1234567890"));
     }
 
     @Test
-    public void password() {
-        boolean result = user.password("Admin@123");
-        Assert.assertEquals(true, result);
+    public void testValidPassword() {
+        Assert.assertTrue(isValidPassword.test("Pass@123"));
     }
 
-    // Sad Test cases
-    @Test(expected = InvalidFirstNameException.class)
+    // Sad test cases
+    @Test
     public void testInvalidFirstName() {
-        user.firstName("akshata");
+        Assert.assertTrue(isValidFirstName.test("akshata"));
     }
 
-    @Test(expected = InvalidLastNameException.class)
+    @Test
     public void testInvalidLastName() {
-        user.lastName("d");
+        Assert.assertTrue(isValidLastName.test("dhanawade"));
     }
 
-    @Test(expected = InvalidEmailIdException.class)
+    @Test
     public void testInvalidEmailId() {
-        user.emailID("dgmail.com");
+        Assert.assertTrue(isValidEmail.test("akshata@gmail.com"));
     }
 
-    @Test(expected = InvalidMobileNumberException.class)
+    @Test
     public void testInvalidMobileNumber() {
-        user.mobileNumber("91 98765");
+        Assert.assertTrue(isValidMobileNumber.test("8010399471"));
     }
 
-    @Test(expected = InvalidPasswordException.class)
+    @Test
     public void testInvalidPassword() {
-        user.password("abc@123");
-    }
-
-    // Custom Exception classes
-    public static class InvalidFirstNameException extends Exception {
-        public InvalidFirstNameException(String message) {
-            super(message);
-        }
-    }
-
-    public static class InvalidLastNameException extends Exception {
-        public InvalidLastNameException(String message) {
-            super(message);
-        }
-    }
-
-    public static class InvalidEmailIdException extends Exception {
-        public InvalidEmailIdException(String message) {
-            super(message);
-        }
-    }
-
-    public static class InvalidMobileNumberException extends Exception {
-        public InvalidMobileNumberException(String message) {
-            super(message);
-        }
-    }
-
-    public static class InvalidPasswordException extends Exception {
-        public InvalidPasswordException(String message) {
-            super(message);
-        }
+        Assert.assertTrue(isValidPassword.test("hello"));
     }
 }
