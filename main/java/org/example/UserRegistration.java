@@ -18,4 +18,13 @@ public class UserRegistration {
         }
         return true;
     }
+
+    public static boolean emailID(String emailid) {
+        boolean isValidEmailId = Pattern.matches("^[a-z]{0,40}[0-9]{2}[@]{1}[a-z]{0,15}[.]{1}[a-z]{3}", emailid);
+        if (isValidEmailId == false) {
+            System.out.println("Please enter valid email id.");
+        }
+        return true;
+    }
+
 }

@@ -17,4 +17,11 @@ public class TestCasesForUserRegistration {
         boolean result = user.lastName("Dhanawade");
         Assert.assertEquals(true,result);
     }
+
+    @Test
+    public void EmailIdCheck()
+    {
+        boolean result = user.emailID("dhanawadeakshata53@gmail.com");
+        Assert.assertEquals(true,result);
+    }
 }
